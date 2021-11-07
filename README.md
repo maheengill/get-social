@@ -62,3 +62,91 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Get social
+
+Get social is a society that organises social events for people 
+
+## Description
+
+Events are shown on the website
+
+## Installation and Getting started
+
+### 1. Clone the project from github
+
+Go to the project and click the Code button. The project can be cloned by copying the link under HTTPS and using the clone command in gitbash as shown below:
+````
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+````
+### 2. Configure the webserver
+
+Configure the webserver so that it points to the /public directory of the project. This is done by changing the DocumentRoot to <path_to_project>\public
+
+### 3. Create database
+
+Create a new database for the application in MySQL. Make a note of the username, database name and password chosen as these will be used later.
+
+### 4. Install the PHP dependencies
+
+Install composer by running the commands below in your terminal:
+
+````
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+````
+Run the command below in order to run Composer:
+````
+php composer.phar
+````
+
+### 5. Install node.js
+
+Go to https://nodejs.org/dist/latest-v16.x/ and download and unzip the correct version for your device.
+
+Add node to your path by running the command below in your terminal (Replace drive letter C with D if you are using a USB):
+
+````
+set PATH=C:\node;%PATH%
+````
+
+### 6. Install the node dependencies and build the front end assets
+
+This can be done by running the commands:
+````
+npm install
+npm run dev
+````
+
+### 7. Make the .env fie
+
+Copy the .env.example file to the .env file. Change the DB_DATABASE, DB_USERNAME, DB_PASSWORD to the correct details of the database created earlier.
+
+### 8. Migrate the database
+
+Make the migrations by using the command below. Migrations are used by the database to create the database tables. 
+
+````
+php artisan migrate
+````
+
+### 9. Seed the database
+
+Seed the database using the command below. This is done to insert fake data into the database.
+
+````
+php artisan db:seed
+````
+
+### 10. Access the project
+
+Go to your web browser and go to localhost to access the project
+
+## How to use the application
+
+### 1. Login as different users
+
+Log in to the system using email="admin@email.com" and password="password" to access the system with admin permissions. 
+To access as a regular user, log in with email="user@email.com" and the same password.
