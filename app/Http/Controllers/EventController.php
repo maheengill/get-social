@@ -44,12 +44,14 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $DateTimeNow = date('Y-m-d H:i:s');
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
             'venue' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
+            'start_time' => 'required|after:'.$DateTimeNow,
+            'end_time' => 'required|after:start_time|after:'.$DateTimeNow,
             'capacity' => 'required|integer|between:0,1000'
         ]);
 

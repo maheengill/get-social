@@ -3,9 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Database\Factories\UserFactory;
+use Database\Factories\EventFactory;
 use App\Models\Event;
 use App\Models\User;
 
@@ -13,21 +14,10 @@ use App\Models\User;
 class EventTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A test to check a request to the home page.
      *
      * @return void
      */
-    public function test_get_events(){
-        $user = User::factory()->create();
-        $response = $this->actingAs($user);
-        $response = $this->get('/events');
-        $response->assertOk();
-        $response->assertViewIs('events.index');
-        $expectedPage1NameData = Event::orderBy('start_time', 'asc')
-            ->take(20)
-            ->pluck('description');
-        $response->assertSeeInOrder(array_merge(['Our events'], $expectedPage1NameData->toArray()));
-    }
 
     public function test_a_basic_request()
     {
@@ -69,47 +59,37 @@ class EventTest extends TestCase
 
     public function test_update_events() {    
         $this->withoutMiddleware();
-        $newDescription = 'Some test comments';    
+        $newDescription = 'A description';    
         $event = Event::factory()->create();    
         $user = User::factory()->create(['user_type' => '1']);
         $response = $this->actingAs($user)        
         ->followingRedirects()        
-        ->patch("/events/{$event->id}", [            
-            'description' => $newDescription
+        ->patch("/events/{$event->id}", [
+            'name' => 'name',            
+            'description' => $newDescription,
+            'venue' => 'venue',
+            'start_time' => '2021-12-30 05:00:00',
+            'end_time' => '2021-12-30 06:00:00',
+            'capacity' => '20'
         ]);
         $newEvent = $event->fresh();     
         $response->assertOk();            
         $this->assertEquals($newDescription, $newEvent->description);            
     }
 
-    /** @test */
-    public function create_page_requires_validation()
+    
+    public function admin_can_create_event()
     {
         $admin = User::factory()->create(['user_type' => '1']);
-        // Post empty data to the create page route
-        $response = $this->post('/events');
-        // This should cause errors with the 
-        // title and content fields as they aren't present
-        $response->assertSessionHasErrors([
-            'name',
-            'description',
-        ]);
-    }
-
-    /** @test */
-    public function admin_can_create_page()
-    {
-        $admin = User::factory()->create(['user_type' => '1']);
-        // Get data from the Factory
-        $page = Event::factory()->make()->toArray();
-        // Post data to the 'create' route
-        $response = $this->post('/events/create', $page);
-        // Check the database has the data we generated with the factory
+        $event = Event::factory()->make()->toArray();
+        $response = $this->patch('/events/create', $event);
         $this->assertDatabaseHas(
             'events',
             [
-                'name' => $page['name']
+                'name' => $event['name']
             ]
         );
     }
+
+    
 }

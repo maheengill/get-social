@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white-800 leading-tight">
             {{ __('Edit event: ') }}
             {{ $event->name }}
         </h2>
@@ -9,86 +9,90 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-white-200">
+
+                    <p>Enter the event details.</p>
+                    <p class="text-xs">All fields are required.</p>
                     
                     @if(Auth()->user()->user_type == 1)
                     
                     <form action="{{ route('events.update', $event->id) }}" method="POST">
 
-                    @csrf
+                        @csrf
+                        @method('PUT')
 
-                    @method('PUT')
+                        <div class="my-10">
 
-                    <div class="my-10">
+                            <x-label for="name">Name:</x-label>
+                            <input type="text" name="name" id="name" value="{{ $event->name }}" class=" p-2 bg-white-200 @error('name') is-invalid @enderror" />
 
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" value="{{ $event->name }}" class=" p-2 bg-gray-200 @error('name') is-invalid @enderror" />
+                            @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
-                        @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        </div>
 
-                    </div>
+                        <div class="my-10">
 
-                    <div class="my-10">
+                            <x-label for="description">Description:</x-label>
+                            <textarea name="description" id="description" row="5" class=" p-2 bg-white-200 @error('description') is-invalid @enderror"> {{ $event->description }}</textarea>
 
-                        <label for="description">Description:</label>
-                        <textarea name="description" id="description" row="5" class=" p-2 bg-gray-200 @error('description') is-invalid @enderror"> {{ $event->description }}</textarea>
+                            @error('description')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
-                        @error('description')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        </div>
 
-                    </div>
+                        <div class=" my-10">
 
-                    <div class=" my-10">
+                            <x-label for="venue">Venue:</x-label>
+                            <textarea name="venue" id="venue" row="5" class=" p-2 bg-white-200 @error('venue') is-invalid @enderror"></textarea>
 
-                        <label for="venue">Venue:</label>
-                        <textarea name="venue" id="venue" row="5" class=" p-2 bg-gray-200 @error('venue') is-invalid @enderror"></textarea>
+                            @error('venue')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
-                        @error('venue')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        </div>
 
-                    </div>
+                        <div class=" my-10">
 
-                    <div class=" my-10">
+                            <x-label for="start_time">Start_time:</x-label>
+                            <input type="datetime-local" name="start_time"></input>
 
-                        <label for="start_time">Start_time:</label>
-                        <input type="datetime-local" name="start_time""></input>
+                            @error('start_time')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
-                        @error('start_time')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        </div>
 
-                    </div>
+                        <div class=" my-10">
 
-                    <div class=" my-10">
+                            <x-label for="end_time">End_time:</x-label>
+                            <input type="datetime-local" name="end_time"></input>
 
-                        <label for="end_time">End_time:</label>
-                        <input type="datetime-local" name="end_time"></input>
+                            @error('end_time')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
-                        @error('end_time')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        </div>
 
-                    </div>
+                        <div class=" my-10">
 
-                    <div class=" my-10">
+                            <x-label for="capacity">Capacity:</x-label>
+                            <textarea name="capacity" id="capacity" row="5" class=" p-2 bg-white-200 @error('capacity') is-invalid @enderror"></textarea>
 
-                        <label for="capacity">Capacity:</label>
-                        <textarea name="capacity" id="capacity" row="5" class=" p-2 bg-gray-200 @error('capacity') is-invalid @enderror"></textarea>
+                            @error('capacity')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
 
-                        @error('capacity')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        </div>
 
-                    </div>
-
-                    <button type="submit" class="btn btn-blue">Update</button>
+                        <x-button type="submit" class="btn btn-blue">Update</x-button>
 
                     </form>
 
+                    @else 
+                    <p>You are not authorised to create an event</p>
                     @endif
 
                 </div>

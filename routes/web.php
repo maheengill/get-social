@@ -14,6 +14,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::resource('/events', EventController::class);
 
+    Route::get('/bookings', [BookingController::class, 'index']);
+
     Route::post('/booking', [BookingController::class, 'store'])->name('make_booking');
     Route::delete('/booking', [BookingController::class, 'destroy'])->name('destroy_booking');
     

@@ -6,6 +6,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Rules\MaxCapacity;
 
 class BookingController extends Controller
 {
@@ -16,7 +17,13 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::orderBy('created_at', 'desc');
+        $eventsIDs = DB::table('bookings')->select('event_id')->where('user_id', auth()->id());
+        $events = DB::table('events')->whereIn('id', $eventsIDs)->paginate(20);;
+        
+
+        return view('bookings/index', [
+            'events' => $events
+        ]);
     }
 
     /**
@@ -40,14 +47,9 @@ class BookingController extends Controller
     
         $this->validate(
             $request, 
-            ['event_id' => 'required|unique:bookings,event_id,NULL,id,user_id,'.Auth::id() ],
+            ['event_id' => ['required', 'unique:bookings,event_id,NULL,id,user_id,'.Auth::id(), new MaxCapacity ]],
             ['event_id.unique' => 'Event has already been booked']
         );
-
-        // echo '<pre>';
-        // print_r($request->all());
-        // echo '</pre>';
-        // die();
         
         $booking = new Booking;
 
@@ -55,7 +57,7 @@ class BookingController extends Controller
         $booking->event_id = $request->event_id;
         $booking->save();
 
-        return redirect()->route('events.index')
+        return redirect()->route('bookings.index')
         ->with('success','Booking created successfully.');
     }
 
@@ -114,7 +116,7 @@ class BookingController extends Controller
         ->delete();
         
 
-        return redirect()->route('events.index')
+        return redirect()->route('bookings.index')
         ->with('success', 'Booking deleted successfully');
     }
 }

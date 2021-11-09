@@ -1,3 +1,3 @@
 <a href="/">
-    <img src="https://i.postimg.cc/hvw84hJQ/GET-SOCIAL.png" width="50" height="50"/>
+    <img src="https://i.postimg.cc/hvw84hJQ/GET-SOCIAL.png" width="65"/>
 </a>

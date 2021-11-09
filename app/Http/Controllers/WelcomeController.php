@@ -12,11 +12,10 @@ class WelcomeController extends Controller
 
 {
     public function index(){
-        $events = Event::all();
         
         return view('welcome', [
-            'title' => 'Our events',
-            'events' => $events
+            'title' => 'GET SOCIAL',
+            'description' => 'Welcome to our website! We organise fun social events for you!'
         ]);
     }
 

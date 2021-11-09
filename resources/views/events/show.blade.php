@@ -10,8 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <section class="pageHeader">
-                                            
+                    
                     <p>{{ $event->description }}</p>
                     <p>Venue: {{ $event->venue }}</p>
                     <p>Start time: {{ $event->start_time }}</p>
@@ -21,7 +20,7 @@
                     <form method="POST" action="{{ route('make_booking') }}">
                         @csrf
                         <input type="hidden" name="event_id" value="{{$event->id}}"/>
-                        <x-button type="submit">BOOK</x-button>
+                        <x-button class="mt-2" type="submit">BOOK</x-button>
                     </form>
 
                     @if (count($errors) > 0)
@@ -38,18 +37,21 @@
                         @csrf
                         @method('delete')
                         <input type="hidden" name="event_id" value="{{$event->id}}"/>
-                        <x-button type="submit">Cancel Booking</x-button>
+                        <x-button class="mt-2" type="submit">Cancel Booking</x-button>
                     </form>
 
                     @if(Auth()->user()->user_type == 1)
+
                     <form action="{{ route('events.edit', $event->id) }}">
-                        <x-button type="submit">Edit</x-button>
+                        <x-button class="mt-2" type="submit">Edit</x-button>
                     </form>
+
                     <form action="{{ route('events.destroy', $event->id) }}" method="POST">
                         @method('DELETE')
                         @csrf
-                        <x-button type="submit">Delete</x-button>
+                        <x-button class="mt-2" type="submit">Delete</x-button>
                     </form>
+
                     @endif
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white-800 leading-tight">
             {{ __('Create event') }}
         </h2>
     </x-slot>
@@ -8,7 +8,10 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-white-200">
+
+                    <p>Enter the event details.</p>
+                    <p class="text-xs">All fields are required.</p>
                     
                     @if(Auth()->user()->user_type == 1)
                     
@@ -18,8 +21,8 @@
 
                         <div class=" my-10">
 
-                            <label for="name">Name:</label>
-                            <input type="text" name="name" id="name" class=" p-2 bg-gray-200 @error('name') is-invalid @enderror" />
+                            <x-label for="name">Name:</x-label>
+                            <input type="text" name="name" id="name" class=" p-2 bg-white-200 @error('name') is-invalid @enderror" />
 
                             @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -29,8 +32,8 @@
 
                         <div class=" my-10">
 
-                            <label for="description">Description:</label>
-                            <textarea name="description" id="description" row="5" class=" p-2 bg-gray-200 @error('description') is-invalid @enderror"></textarea>
+                            <x-label for="description">Description:</x-label>
+                            <textarea name="description" id="description" row="5" class=" p-2 bg-white-200 @error('description') is-invalid @enderror"></textarea>
 
                             @error('description')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -40,8 +43,8 @@
 
                         <div class=" my-10">
 
-                            <label for="venue">Venue:</label>
-                            <textarea name="venue" id="venue" row="5" class=" p-2 bg-gray-200 @error('venue') is-invalid @enderror"></textarea>
+                            <x-label for="venue">Venue:</x-label>
+                            <textarea name="venue" id="venue" row="5" class=" p-2 bg-white-200 @error('venue') is-invalid @enderror"></textarea>
 
                             @error('venue')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -51,7 +54,7 @@
 
                         <div class=" my-10">
 
-                            <label for="start_time">Start_time:</label>
+                            <x-label for="start_time">Start time:</x-label>
                             <input type="datetime-local" name="start_time""></input>
 
                             @error('start_time')
@@ -62,7 +65,7 @@
 
                         <div class=" my-10">
 
-                            <label for="end_time">End_time:</label>
+                            <x-label for="end_time">End time:</x-label>
                             <input type="datetime-local" name="end_time"></input>
 
                             @error('end_time')
@@ -73,8 +76,8 @@
 
                         <div class=" my-10">
 
-                            <label for="capacity">Capacity:</label>
-                            <textarea name="capacity" id="capacity" row="5" class=" p-2 bg-gray-200 @error('capacity') is-invalid @enderror"></textarea>
+                            <x-label for="capacity">Capacity:</x-label>
+                            <textarea name="capacity" id="capacity" row="5" class=" p-2 bg-white-200 @error('capacity') is-invalid @enderror"></textarea>
 
                             @error('capacity')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -82,7 +85,7 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-blue">Create</button>
+                        <x-button type="submit" class="btn btn-blue">Create</x-button>
 
                     </form>
 
