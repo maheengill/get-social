@@ -13,7 +13,7 @@
 
                     <div class="container mx-auto">
 
-                    <h1>Get Social</h1>
+                    <h1 class="font-bold text-xl mt-2 mb-2">Get Social</h1>
 
                     </div>
 
@@ -29,7 +29,7 @@
 
                     <li><a href="/">Home</a></li>
 
-                    <li><a href="/events">events</a></li>
+                    <li><a href="/events">Events</a></li>
 
 
 

@@ -63,13 +63,21 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+
+
+
+
+[GET-SOCIAL](https://i.postimg.cc/hvw84hJQ/GET-SOCIAL.png)
+
 # Get social
 
 Get social is a society that organises social events for people 
 
 ## Description
 
-Events are shown on the website
+The society uses the website to display the events. Users can view these events and find out more about the events they like. If a user wants to attend an event, they can make a booking as long as the event isn't fully booked.
+
+Admins can add new events to the website. They can also edit and delete existing events.
 
 ## Installation and Getting started
 
@@ -83,7 +91,7 @@ $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 
 Configure the webserver so that it points to the /public directory of the project. This is done by changing the DocumentRoot to <path_to_project>\public
 
-### 3. Create database
+### 3. Create a database
 
 Create a new database for the application in MySQL. Make a note of the username, database name and password chosen as these will be used later.
 
@@ -146,7 +154,45 @@ Go to your web browser and go to localhost to access the project
 
 ## How to use the application
 
-### 1. Login as different users
+### Registering as a new user
 
-Log in to the system using email="admin@email.com" and password="password" to access the system with admin permissions. 
-To access as a regular user, log in with email="user@email.com" and the same password.
+To register as a new user, click on the "Register" link at the top right of the home page. Enter the details to create an account. Ensure to enter a valid email address and a password of atleast 8 characters that matches the confirm password field. If done incorrectly, the errors shown below will be seen:
+
+
+### Logging in as admin
+
+Click on the "Log in" link in the top right corner and log in to the system using email="admin@email.com" and password="password". This means that the system will be accessed with admin permissions. 
+
+This will take you to the dashboard. Here you can see the options to add a new event or view existing events.
+
+### Creating new events
+
+To create a new event click on "Add event". This will take you to the creating events form. All the fields in the form are required. 
+
+Enter the details of the new event, ensuring that the end time is after the start time and the capacity is an integer. Validation checks are done on the input so the form will not submit and display the errors if the input is incorrect. This can be seen below:
+
+Once the event has been submitted, you will be redirected to the events page where you should be able to see the newly added event.
+
+### Reading, updating and deleting events
+
+The name, description and start times of the events are shown on the events page. To view more details (i.e. end time, venue, capacity) of an event, click on the show link. 
+
+Events can be edited and/or deleted by admins from both the "events" page and the "show event" page.
+
+### Booking an event
+
+To book an event click on the "show" link for an event. Here a "Book" button can be seen under the details of the event. Clicking on this button will create a booking for the logged in user at the event shown on the page.
+
+### Canceling a booking
+
+To cancel a booking, the show event page for the booked event can be clicked. A "Cancel Booking" button can be seen under the event. This button can be clicked to cancel the booking.
+
+## Testing the application
+
+The application can be tested by running the following command in Git Bash:
+
+````
+php artisan test
+````
+
+This will produce a list of all the tests written for the application and show the passed tests with a check mark.

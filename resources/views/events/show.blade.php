@@ -18,11 +18,27 @@
                     <p>End time: {{ $event->end_time }}</p>
                     <p>Event capacity: {{ $event->capacity }}</p>
 
-
-                    <form method="POST" action="/booking">
+                    <form method="POST" action="{{ route('make_booking') }}">
                         @csrf
                         <input type="hidden" name="event_id" value="{{$event->id}}"/>
                         <x-button type="submit">BOOK</x-button>
+                    </form>
+
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form method="post" action="{{ route('destroy_booking') }}">
+                        @csrf
+                        @method('delete')
+                        <input type="hidden" name="event_id" value="{{$event->id}}"/>
+                        <x-button type="submit">Cancel Booking</x-button>
                     </form>
 
                     @if(Auth()->user()->user_type == 1)
@@ -30,6 +46,8 @@
                         <x-button type="submit">Edit</x-button>
                     </form>
                     <form action="{{ route('events.destroy', $event->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
                         <x-button type="submit">Delete</x-button>
                     </form>
                     @endif

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -36,10 +37,12 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        
-        request()->validate([
-            'event_id' => 'required|unique:bookings,event_id|unique:booking,user_id'
-        ]);
+    
+        $this->validate(
+            $request, 
+            ['event_id' => 'required|unique:bookings,event_id,NULL,id,user_id,'.Auth::id() ],
+            ['event_id.unique' => 'Event has already been booked']
+        );
 
         // echo '<pre>';
         // print_r($request->all());
@@ -96,8 +99,22 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy(Request $request)
     {
-        //
+
+        $this->validate(
+            $request, 
+            ['event_id' => 'required|exists:bookings,event_id,user_id,'.Auth::id() ],
+            ['event_id.exists' => 'Booking does not exist']
+        );
+
+        DB::table('bookings')
+        ->where('user_id', Auth::id())
+        ->where('event_id', $request->event_id)
+        ->delete();
+        
+
+        return redirect()->route('events.index')
+        ->with('success', 'Booking deleted successfully');
     }
 }

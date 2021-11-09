@@ -13,8 +13,10 @@ Route::group(['middleware' => 'auth'], function(){
     })->name('dashboard');
 
     Route::resource('/events', EventController::class);
-    Route::post('/booking', [BookingController::class, 'store']);
 
+    Route::post('/booking', [BookingController::class, 'store'])->name('make_booking');
+    Route::delete('/booking', [BookingController::class, 'destroy'])->name('destroy_booking');
+    
     Route::put('event/{event}/update', 'EventController@update');
 });
 

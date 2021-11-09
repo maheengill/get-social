@@ -4,8 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Get social</title>
-
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -36,24 +34,8 @@
                 </div>
             @endif
 
-            <h1>{{ $title }}</h1>
+            <h1>Get social</h1>
 
-
-            @foreach ($events as $event)
-
-            <section>
-
-            <h2>{{ $event->name }}</h2>
-
-
-            <p>{{ $event->description }}</p>
-            <p>{{ $event->start_time }}</p>
-            
-
-            </section>
-
-            @endforeach
-        
         </div>
     </body>
 </html>
