@@ -125,9 +125,13 @@ Events can be edited and/or deleted by admins from both the "events" page and th
 
 ### Booking an event and Cancelling a booking
 
-To book an event click on the "show" link for an event. Here a "Book" button can be seen under the details of the event. Clicking on this button will create a booking for the logged in user at the event shown on the page.
+To book an event click on the "show" link for an event. Here a "Book" button can be seen under the details of the event. Clicking on this button will create a booking for the logged in user at the event shown on the page. 
+
+If the book button is clicked when an event is already booked, the request will fail validation and the user will be informed that they have already booked the event
 
 To cancel a booking, the show event page for the booked event can be clicked. A "Cancel Booking" button can be seen under the event. This button can be clicked to cancel the booking.
+
+If a user tries to cancel a booking that doesn't exist, the error message from the failed validation will be shown.
 
 [![2021-11-09-11.png](https://i.postimg.cc/V6ghBWCX/2021-11-09-11.png)](https://postimg.cc/ZB9jJ3jq)
 
